@@ -1,0 +1,19 @@
+require "synsbasen_api/client"
+require "synsbasen_api/resources/vehicle"
+
+module SynsbasenApi
+  REQUIRED_CONFIGS = %i[api_key base_url]
+
+  def self.configure
+    @config ||= OpenStruct.new
+    yield(@config) if block_given?
+
+    raise "Missing configuration. Required configurations are #{REQUIRED_CONFIGS}" unless REQUIRED_CONFIGS.all? { |c| @config[c] }
+
+    @config
+  end
+
+  def self.config
+    @config || configure
+  end
+end
