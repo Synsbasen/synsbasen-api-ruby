@@ -1,5 +1,6 @@
 require "synsbasen_api/client"
 require "synsbasen_api/resources/vehicle"
+require "synsbasen_api/resources/inspection"
 
 module SynsbasenApi
   REQUIRED_CONFIGS = %i[api_key base_url]
