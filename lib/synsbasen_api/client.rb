@@ -5,7 +5,6 @@ require "active_support/core_ext/hash/keys"
 module SynsbasenApi
   class Client
     def self.connection
-      puts SynsbasenApi.config
       @_connection ||= Faraday.new(url: SynsbasenApi.config[:base_url]) do |conn|
         conn.use Faraday::Response::RaiseError
         conn.headers = {

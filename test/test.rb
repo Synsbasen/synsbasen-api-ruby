@@ -6,6 +6,8 @@ SynsbasenApi.configure do |config|
   config.api_key = "basic_api_key"
 end
 
-vehicle = SynsbasenApi::Vehicle.find_by_registration("AS67902")
+response = SynsbasenApi::Vehicle.find_by_registration("AS67902")
+puts response.data[:registration]
 
-vehicles = SynsbasenApi::Vehicle.search({ registration: "AS679" })
+response = SynsbasenApi::Vehicle.search({ registration: "AS679" })
+puts response.data.map { |v| v[:registration] }
