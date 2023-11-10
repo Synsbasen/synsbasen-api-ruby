@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description = "Description of Synsbasen API."
   spec.license     = "MIT"
 
-  spec.add_runtime_dependency "activesupport", "~> 7.1"
+  spec.add_runtime_dependency "activesupport", "~> 7"
   spec.add_runtime_dependency "faraday", "~> 2.7"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
