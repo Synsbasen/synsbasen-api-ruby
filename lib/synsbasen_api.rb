@@ -1,7 +1,12 @@
 require "synsbasen_api/client"
-require "synsbasen_api/resources/vehicle"
+require "synsbasen_api/resources/brand"
 require "synsbasen_api/resources/inspection"
 require "synsbasen_api/resources/inspection_test_center"
+require "synsbasen_api/resources/model"
+require "synsbasen_api/resources/test_center"
+require "synsbasen_api/resources/vehicle"
+require "synsbasen_api/resources/variant"
+require "synsbasen_api/resources/version"
 
 module SynsbasenApi
   REQUIRED_CONFIGS = %i[api_key base_url]
