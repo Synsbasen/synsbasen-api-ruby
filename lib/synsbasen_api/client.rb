@@ -5,9 +5,10 @@ require "active_support/core_ext/hash/keys"
 
 module SynsbasenApi
   class Client
+    DEFAULT_BASE_URL = "https://api.synsbasen.dk".freeze
     class << self
       def connection
-        @_connection ||= Faraday.new(url: SynsbasenApi.config[:base_url]) do |conn|
+        @_connection ||= Faraday.new(url: SynsbasenApi.config[:base_url] || DEFAULT_BASE_URL) do |conn|
           conn.use Faraday::Response::RaiseError
           conn.headers = {
             'Content-Type' => 'application/json',

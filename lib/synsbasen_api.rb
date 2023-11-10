@@ -9,7 +9,7 @@ require "synsbasen_api/resources/variant"
 require "synsbasen_api/resources/version"
 
 module SynsbasenApi
-  REQUIRED_CONFIGS = %i[api_key base_url]
+  REQUIRED_CONFIGS = %i[api_key]
 
   def self.configure
     @config ||= OpenStruct.new
