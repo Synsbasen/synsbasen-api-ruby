@@ -4,7 +4,7 @@
 - [x] Should just return the data as is in an `ApiResponse` object
 - [x] Handle errors with custom classes
 - [ ] Add tests
-- [ ] Write README
+- [x] Write README
 - [ ] Write YARD documentation
 
 ## Version 2
