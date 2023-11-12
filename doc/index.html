@@ -101,13 +101,33 @@
 
 <p>The documentation is generated using <a href="https://yardoc.org/">YARD</a>. To update the documentation, run <code>yard doc</code> in your console.</p>
 
+<h3 id="push-documentation-to-github-pages">Push documentation to GitHub Pages</h3>
+
+<p>To push the documentation to GitHub Pages:</p>
+
+<ul>
+<li>check out to <code>gh-pages</code></li>
+<li>merge the changes from <code>master</code></li>
+<li>delete all files except for <code>doc/</code></li>
+<li>move contents from <code>doc/</code> to the root directory (<code>mv doc/* ./</code>)</li>
+<li>and push the changes to GitHub</li>
+</ul>
+
+<h2 id="building-the-gem">Building the gem</h2>
+
+<p>Build the gem by running <code>gem build synsbasen_api.gemspec</code> in your console.</p>
+
+<h2 id="publishing-the-gem">Publishing the gem</h2>
+
+<p>Publish the gem by running <code>gem push synsbasen_api-&lt;version&gt;.gem</code> in your console.</p>
+
 <h2 id="license">License</h2>
 
 <p>The gem is available as open source under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov 12 12:48:49 2023 by
+  Generated on Sun Nov 12 12:55:25 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.1).
 </div>
