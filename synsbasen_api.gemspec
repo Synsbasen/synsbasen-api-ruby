@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email       = ["jimmypoulsen96@gmail.com", "tobias.knudsen@gmail.com"]
   spec.homepage    = "https://github.com/Synsbasen/synsbasen-api-ruby"
   spec.summary     = "Library that provides a simple way to interact with Synsbasen API"
-  spec.description = "Synsbasen API is the easiest way to get access to the Danish vehicle registry."
+  spec.description = "Synsbasen API is the easiest way to get access to the Danish vehicle registry. See https://api.synsbasen.dk for details."
   spec.license     = "MIT"
 
   spec.metadata = {
