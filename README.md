@@ -3,7 +3,7 @@ The Synsbasen API Ruby library offers a streamlined interface for interacting wi
 
 Key features of the Synsbasen API Ruby library include:
 - Seamless configuration path for swift setup and utilization.
-- Pagination helpers for easy navigation through results*.
+- Pagination helpers for easy navigation through results.*
 - Built-in mechanisms for parameter serialization in accordance with the Synsbasen API's specifications.
 
 *coming soon
