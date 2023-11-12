@@ -36,5 +36,18 @@ Build the gem by running `gem build synsbasen_api.gemspec` in your console.
 ## Updating documentation
 The documentation is generated using [YARD](https://yardoc.org/). To update the documentation, run `yard doc` in your console.
 
+### Push documentation to GitHub Pages
+To push the documentation to GitHub Pages:
+* check out to `gh-pages`
+* merge the changes from `master`
+* move contents from `doc/` to the root directory (`mv doc/* ./`)
+* and push the changes to GitHub
+
+## Building the gem
+Build the gem by running `gem build synsbasen_api.gemspec` in your console.
+
+## Publishing the gem
+Publish the gem by running `gem push synsbasen_api-<version>.gem` in your console.
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
