@@ -1,7 +1,7 @@
-lib/synsbasen_api.rb f2645aa1d8d823a3d042257170ad7e9a2df31065
+lib/synsbasen_api.rb 794a0203a021297875695a0439571e36526029cf
 lib/synsbasen_api/error.rb 243138f39ea4d0e84e0913818205500e8097a5b5
 lib/synsbasen_api/client.rb ea65aebd6dbc7e1919bb74494f2c7b4cc76d238c
-lib/synsbasen_api/version.rb d5678a850f22910da82de89ca7842d6419ad9892
+lib/synsbasen_api/version.rb 941f9101759dafdcf2843e263a6a28fa0fa65621
 lib/synsbasen_api/api_response.rb 7c850f314a3396d0c72eebd0524ca38b14134b0c
 lib/synsbasen_api/resources/brand.rb 2843b49075a1a8fed3d002f55ccce50a630d80e4
 lib/synsbasen_api/resources/model.rb 13b2b4dc72832629c0f1cae2efa97c898070a1ba
