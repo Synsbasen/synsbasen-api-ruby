@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     synsbasen_api (0.0.1)
-      activesupport (~> 7.1)
+      activesupport (~> 7)
       faraday (~> 2.7)
 
 GEM
