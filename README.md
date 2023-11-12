@@ -33,5 +33,8 @@ Feel free to submit a pull request. We have the ambition to support other provid
 
 Build the gem by running `gem build synsbasen_api.gemspec` in your console.
 
+## Updating documentation
+The documentation is generated using [YARD](https://yardoc.org/). To update the documentation, run `yard doc` in your console.
+
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
