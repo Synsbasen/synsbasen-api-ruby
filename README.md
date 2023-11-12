@@ -1,5 +1,15 @@
 # Synsbasen API
-This is the official Ruby gem for the Synsbasen API.
+The Synsbasen API Ruby library offers a streamlined interface for interacting with the Synsbasen API in Ruby-based applications. This library is designed to facilitate the retrieval of information related to vehicles and inspections. It incorporates a set of pre-defined classes for API resources, dynamically initializing themselves from API responses, ensuring compatibility across various versions of the Synsbasen API.
+
+Key features of the Synsbasen API Ruby library include:
+- Seamless configuration path for swift setup and utilization.
+- Pagination helpers for easy navigation through results*.
+- Built-in mechanisms for parameter serialization in accordance with the Synsbasen API's specifications.
+
+*coming soon
+
+## Documentation
+See the [Ruby API docs](https://synsbasen.github.io/synsbasen-api-ruby/) for more information.
 
 ## Getting started
 Add the following to your application's Gemfile:
@@ -16,11 +26,6 @@ Next, you need to add an initializer (config/initializers/synsbasen_api.rb):
 SynsbasenApi.configure do |config|
   config.api_key = ENV["SYNSBASEN_API_KEY"]
 end
-```
-
-### Example
-```ruby
-SynsbasenApi::Vehicle.find_by_registration_number("DS88784")
 ```
 
 ## Contributing
