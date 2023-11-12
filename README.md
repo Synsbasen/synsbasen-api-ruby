@@ -40,6 +40,7 @@ The documentation is generated using [YARD](https://yardoc.org/). To update the 
 To push the documentation to GitHub Pages:
 * check out to `gh-pages`
 * merge the changes from `master`
+* delete all files except for `doc/`
 * move contents from `doc/` to the root directory (`mv doc/* ./`)
 * and push the changes to GitHub
 
