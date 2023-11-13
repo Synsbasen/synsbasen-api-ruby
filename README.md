@@ -28,6 +28,20 @@ SynsbasenApi.configure do |config|
 end
 ```
 
+### Callbacks
+The library supports callbacks for the following events:
+- `after_request` - called after the request has been made. The callback receives the response object (which is a `Faraday::Response` object) as an argument.
+
+To register a callback, use the following syntax in your initializer:
+
+```ruby
+SynsbasenApi.configure do |config|
+  config.after_request = ->(response) do
+    Rails.logger.info("Synsbasen API response: #{response.body}")
+  end
+end
+```
+
 ## Contributing
 Feel free to submit a pull request. We have the ambition to support other providers than Auth0 as well.
 

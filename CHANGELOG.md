@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+* 1 minor enhancement:
+  * Introduce after_request callback
+
 ## 1.0.1
 * 1 minor enhancement:
   * Fix error that would occur when configuring the gem
