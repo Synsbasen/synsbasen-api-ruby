@@ -10,16 +10,16 @@ module SynsbasenApi
       # @param id [String] The unique identifier of the brand.
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of the specified brand.
-      def find(id)
-        get("/v1/brands/#{id}")
+      def find(id, expand: [])
+        get("/v1/brands/#{id}", expand: expand)
       end
 
       # Retrieves information about all brands.
       #
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of all brands.
-      def all
-        get("/v1/brands")
+      def all(expand: [])
+        get("/v1/brands", expand: expand)
       end
     end
   end

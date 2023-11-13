@@ -10,12 +10,13 @@ module SynsbasenApi
       # @param args [Hash] Additional parameters to customize the search.
       # @option args [String] :method The search method. Default is 'SELECT'.
       # @return [ApiResponse] An instance of `ApiResponse` containing search results.
-      def search(args = {})
+      def search(args = {}, expand: [])
         post(
           "/v1/inspections/search",
           body: {
             method: 'SELECT',
-          }.merge(args).to_json
+          }.merge(args),
+          expand: expand
         )
       end
     end
