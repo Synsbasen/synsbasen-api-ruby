@@ -182,6 +182,29 @@ endpoints in the Synsbasen API. It extends the <code>Client</code> class.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#find_by_vin-class_method" title="find_by_vin (class method)">.<strong>find_by_vin</strong>(vin)  &#x21d2; ApiResponse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Retrieves information about a vehicle based on its VIN (Vehicle Identification Number).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#search-class_method" title="search (class method)">.<strong>search</strong>(args = {})  &#x21d2; ApiResponse </a>
     
 
@@ -377,6 +400,83 @@ of the specified vehicle.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="find_by_vin-class_method">
+  
+    .<strong>find_by_vin</strong>(vin)  &#x21d2; <tt><span class='object_link'><a href="ApiResponse.html" title="SynsbasenApi::ApiResponse (class)">ApiResponse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Retrieves information about a vehicle based on its VIN (Vehicle Identification Number).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>vin</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The VIN of the vehicle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ApiResponse.html" title="SynsbasenApi::ApiResponse (class)">ApiResponse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An instance of <code>ApiResponse</code> containing details
+of the specified vehicle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/synsbasen_api/resources/vehicle.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_by_vin'>find_by_vin</span><span class='lparen'>(</span><span class='id identifier rubyid_vin'>vin</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v1/vehicles/vin/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_vin'>vin</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="search-class_method">
   
     .<strong>search</strong>(args = {})  &#x21d2; <tt><span class='object_link'><a href="ApiResponse.html" title="SynsbasenApi::ApiResponse (class)">ApiResponse</a></span></tt> 
@@ -460,17 +560,17 @@ of the specified vehicle.</p>
       <pre class="lines">
 
 
-31
-32
-33
-34
-35
-36
-37
-38</pre>
+40
+41
+42
+43
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/synsbasen_api/resources/vehicle.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/synsbasen_api/resources/vehicle.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search'>search</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span>
@@ -490,7 +590,7 @@ of the specified vehicle.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Nov 13 21:58:28 2023 by
+  Generated on Mon Nov 13 23:09:27 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.34 (ruby-3.2.1).
 </div>
