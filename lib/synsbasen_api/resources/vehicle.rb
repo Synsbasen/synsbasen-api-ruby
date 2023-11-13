@@ -23,6 +23,15 @@ module SynsbasenApi
         get("/v1/vehicles/registration/#{registration}")
       end
 
+      # Retrieves information about a vehicle based on its VIN (Vehicle Identification Number).
+      #
+      # @param vin [String] The VIN of the vehicle.
+      # @return [ApiResponse] An instance of `ApiResponse` containing details
+      #   of the specified vehicle.
+      def find_by_vin(vin)
+        get("/v1/vehicles/vin/#{vin}")
+      end
+
       # Performs a search for vehicles based on the provided criteria.
       #
       # @param args [Hash] Additional parameters to customize the search.
