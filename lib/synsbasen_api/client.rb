@@ -37,6 +37,8 @@ module SynsbasenApi
           req.body = body unless body.empty?
         end
 
+        handle_after_request_callback(response)
+
         ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
       rescue => e
         rescue_and_raise_errors(e)
@@ -54,6 +56,8 @@ module SynsbasenApi
           req.params = params
           req.body = body
         end
+
+        handle_after_request_callback(response)
 
         ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
       rescue => e
@@ -77,6 +81,16 @@ module SynsbasenApi
         else
           raise e
         end
+      end
+
+      # Calls the after_request callback if configured in the SynsbasenApi.
+      #
+      # @param response [Faraday::Response] The Faraday response object.
+      # @return [void]
+      def handle_after_request_callback(response)
+        return unless SynsbasenApi.config[:after_request]
+
+        SynsbasenApi.config[:after_request].call(response)
       end
     end
   end
