@@ -5,7 +5,7 @@
 - [x] Handle errors with custom classes
 - [ ] Add tests
 - [x] Write README
-- [ ] Write YARD documentation
+- [x] Write YARD documentation
 
 ## Version 2
 - [ ] Should utilize `ApiResponse`, `ApiObject` and `ListObject` objects similar to [Stripe's Ruby gem](https://github.com/stripe/stripe-ruby)
