@@ -15,7 +15,7 @@ See the [Ruby API docs](https://synsbasen.github.io/synsbasen-api-ruby/) for mor
 Add the following to your application's Gemfile:
 
 ```ruby
-gem "synsbasen_api", github: "Synsbasen/synsbasen-api-ruby", branch: "master"
+gem "synsbasen_api"
 ```
 
 Then run `bundle install`.
