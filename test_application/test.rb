@@ -11,14 +11,16 @@ end
 # Vehicles
 puts "Vehicles"
 begin
-  response = SynsbasenApi::Vehicle.find_by_registration("AS67902")
+  response = SynsbasenApi::Vehicle.find_by_registration("AS67902", expand: %i[equipment])
   puts response.data[:registration]
+  puts response.data[:equipment]
 rescue => e
   binding.irb
 end
 
-response = SynsbasenApi::Vehicle.search({ registration: "AS679" })
+response = SynsbasenApi::Vehicle.search({ registration: "AS679" }, expand: %i[equipment])
 puts response.data.map { |v| v[:registration] }
+puts response.data.map { |v| v[:equipment] }
 
 puts ""
 

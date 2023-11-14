@@ -10,8 +10,8 @@ module SynsbasenApi
       # @param id [String] The unique identifier of the model.
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of the specified model.
-      def find(id)
-        get("/v1/models/#{id}")
+      def find(id, expand: [])
+        get("/v1/models/#{id}", expand: expand)
       end
 
       # Retrieves information about all models associated with a given brand.
@@ -19,8 +19,8 @@ module SynsbasenApi
       # @param brand_id [String] The unique identifier of the brand.
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of all models associated with the specified brand.
-      def all(brand_id)
-        get("/v1/brands/#{brand_id}/models")
+      def all(brand_id, expand: [])
+        get("/v1/brands/#{brand_id}/models", expand: expand)
       end
     end
   end

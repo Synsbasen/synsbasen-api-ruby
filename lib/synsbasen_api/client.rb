@@ -4,6 +4,8 @@ require "synsbasen_api/api_response"
 require "synsbasen_api/error"
 require "faraday"
 require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/object/blank"
+require "active_support/core_ext/enumerable"
 
 module SynsbasenApi
   # The `Client` class serves as the base class for interacting with the Synsbasen API.
@@ -31,10 +33,9 @@ module SynsbasenApi
       # @param body [Hash] Request body.
       # @return [ApiResponse] An instance of `ApiResponse` containing the API response.
       # @raise [ClientError, ServerError] Raised for client or server errors.
-      def get(path, params: {}, body: {})
+      def get(path, params: {}, expand: [])
         response = connection.get(path) do |req|
-          req.params = params
-          req.body = body unless body.empty?
+          req.params = { **params, expand: expand }.compact_blank
         end
 
         handle_after_request_callback(response)
@@ -51,10 +52,10 @@ module SynsbasenApi
       # @param body [Hash] Request body.
       # @return [ApiResponse] An instance of `ApiResponse` containing the API response.
       # @raise [ClientError, ServerError] Raised for client or server errors.
-      def post(path, params: {}, body: {})
+      def post(path, params: {}, body: {}, expand: [])
         response = connection.post(path) do |req|
           req.params = params
-          req.body = body
+          req.body = { **body, expand: expand }.compact_blank.to_json
         end
 
         handle_after_request_callback(response)
