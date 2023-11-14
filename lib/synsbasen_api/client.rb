@@ -33,10 +33,9 @@ module SynsbasenApi
       # @param body [Hash] Request body.
       # @return [ApiResponse] An instance of `ApiResponse` containing the API response.
       # @raise [ClientError, ServerError] Raised for client or server errors.
-      def get(path, params: {}, body: {}, expand: [])
+      def get(path, params: {}, expand: [])
         response = connection.get(path) do |req|
           req.params = { **params, expand: expand }.compact_blank
-          req.body = body.to_json unless body.empty?
         end
 
         handle_after_request_callback(response)
