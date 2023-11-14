@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+* 1 minor enhancement:
+  * Support expand
+  * Add Vehicle#find_by_vin
+
 ## 1.0.2
 * 1 minor enhancement:
   * Introduce after_request callback
