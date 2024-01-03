@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi/escape'
+
 module SynsbasenApi
   # The `Vehicle` class provides methods for interacting with vehicle-related
   # endpoints in the Synsbasen API. It extends the `Client` class.
@@ -20,7 +22,8 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of the specified vehicle.
       def find_by_registration(registration, expand: [])
-        get("/v1/vehicles/registration/#{registration}", expand: expand)
+        escaped_registration = CGI.escape(registration)
+        get("/v1/vehicles/registration/#{escaped_registration}", expand: expand)
       end
 
       # Retrieves information about a vehicle based on its VIN (Vehicle Identification Number).
