@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    synsbasen_api (1.0.4)
+    synsbasen_api (1.0.5)
       activesupport (~> 7)
       faraday (~> 2.7)
 

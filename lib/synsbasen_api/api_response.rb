@@ -15,17 +15,22 @@ module SynsbasenApi
     # @return [Numeric] The total number of pages available.
     attr_reader :total_pages
 
+    # @return [Numeric] The total count of items available.
+    attr_reader :total_count
+
     # Initializes a new instance of `ApiResponse` with the provided response data.
     #
     # @param response [Hash] The response data from the API.
     # @option response [Hash] :data The data included in the API response.
     # @option response [Numeric] :cost The cost associated with the API response.
     # @option response [Boolean] :has_more Indicates whether there is more data available in the response.
+    # @option response [Boolean] :total_pages The total number of pages available.
+    # @option response [Boolean] :total_count The total count of items available.
     def initialize(response)
       @data = response[:data]
       @cost = response[:cost]
 
-      %i[has_more total_pages].each do |key|
+      %i[has_more total_pages total_count].each do |key|
         instance_variable_set("@#{key}", response[key]) if response.key?(key)
       end
     end
