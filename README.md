@@ -41,7 +41,7 @@ end
 ```
 
 ## Contributing
-Feel free to submit a pull request. We have the ambition to support other providers than Auth0 as well.
+Feel free to submit a pull request.
 
 Build the gem by running `gem build synsbasen_api.gemspec` in your console.
 
