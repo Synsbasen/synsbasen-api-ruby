@@ -28,7 +28,7 @@ end
 
 ### Callbacks
 The library supports callbacks for the following events:
-- `after_request` - called after the request has been made. The callback receives the response object (which is a `Faraday::Response` object) as an argument.
+- `after_request` - called after the request has been made. The callback receives the response object (which is a `Net::HTTPOK` object if successful) as an argument.
 
 To register a callback, use the following syntax in your initializer:
 
