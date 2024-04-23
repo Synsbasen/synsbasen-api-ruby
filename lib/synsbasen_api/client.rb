@@ -62,7 +62,7 @@ module SynsbasenApi
       def connection
         uri = URI.parse(SynsbasenApi.config[:base_url] || DEFAULT_BASE_URL)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == 'https'
+        http.use_ssl = uri.scheme == "https"
         http
       end
 
@@ -82,8 +82,8 @@ module SynsbasenApi
 
         request = method.new(uri)
         request.body = body.compact_blank.to_json if method == Net::HTTP::Post
-        request['Content-Type'] = 'application/json'
-        request['Authorization'] = "Bearer #{SynsbasenApi.config[:api_key]}"
+        request["Content-Type"] = "application/json"
+        request["Authorization"] = "Bearer #{SynsbasenApi.config[:api_key]}"
 
         request
       end
