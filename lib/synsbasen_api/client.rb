@@ -40,7 +40,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       rescue => e
         rescue_and_raise_errors(e)
       end
@@ -60,7 +60,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       rescue => e
         rescue_and_raise_errors(e)
       end
@@ -76,9 +76,9 @@ module SynsbasenApi
         when Faraday::UnauthorizedError
           raise ClientError.new(e.message, e.response[:status], {})
         when Faraday::ClientError
-          raise ClientError.new(e.message, e.response[:status], JSON.parse(e.response[:body]).deep_symbolize_keys)
+          raise ClientError.new(e.message, e.response[:status], parse_json(e.response[:body]))
         when Faraday::ServerError
-          raise ServerError.new(e.message, e.response[:status], JSON.parse(e.response[:body]).deep_symbolize_keys)
+          raise ServerError.new(e.message, e.response[:status], parse_json(e.response[:body]))
         else
           raise e
         end
@@ -92,6 +92,38 @@ module SynsbasenApi
         return unless SynsbasenApi.config[:after_request]
 
         SynsbasenApi.config[:after_request].call(response)
+      end
+
+      # Parses a JSON string into a hash with symbolized keys.
+      #
+      # @param data [String] The JSON string to parse.
+      # @return [Hash] The parsed JSON string as a hash with symbolized keys.
+      def parse_json(data)
+        deep_symbolize_keys(JSON.parse(data))
+      end
+
+      # Recursively converts all keys in a hash to symbols.
+      #
+      # This method is used to convert all keys in the API response to symbols.
+      #
+      # @param hash [Hash] The hash to convert.
+      # @return [Hash] The hash with all keys converted to symbols.
+      # @example
+      #  deep_symbolize_keys({ "key" => "value" }) #=> { key: "value" }
+      #  deep_symbolize_keys({ "key" => { "nested_key" => "value" } }) #=> { key: { nested_key: "value" } }
+      def deep_symbolize_keys(obj)
+        case obj
+        when Hash
+          obj.each_with_object({}) do |(key, value), result|
+            new_key = key.is_a?(String) ? key.to_sym : key
+            new_value = deep_symbolize_keys(value)
+            result[new_key] = new_value
+          end
+        when Array
+          obj.map { |value| deep_symbolize_keys(value) }
+        else
+          obj
+        end
       end
     end
   end
