@@ -28,7 +28,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       end
 
       # Sends a POST request to Synsbasen API.
@@ -48,7 +48,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       end
 
       private
@@ -78,7 +78,7 @@ module SynsbasenApi
         uri.query = URI.encode_www_form(params.merge(expand: expand))
 
         request = method.new(uri)
-        request.body = body.reject { |i| i.nil? || i.empty? } if method == Net::HTTP::Post
+        request.body = body.reject { |i| i.nil? || i.empty? }.to_json if method == Net::HTTP::Post
         request["Content-Type"] = "application/json"
         request["Authorization"] = "Bearer #{SynsbasenApi.config[:api_key]}"
 
