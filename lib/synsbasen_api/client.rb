@@ -76,7 +76,7 @@ module SynsbasenApi
         uri = URI.parse(SynsbasenApi.config[:base_url] || DEFAULT_BASE_URL)
         uri.path = path
         query = params
-        query.merge!('expand[]': expand) if expand.any?
+        query.merge!('expand[]': expand) unless expand.nil? || expand.empty?
         uri.query = URI.encode_www_form(query)
 
         request = method.new(uri)
