@@ -62,6 +62,19 @@ puts response.data.first(10).map { |i| i[:name] }
 
 puts ""
 
+puts "Inspection test centers in Aalborg"
+aalborg_itc = SynsbasenApi::InspectionTestCenter.search({
+  query: {
+    zip_in: [9000, 9200, 9220],
+  },
+  method: 'SELECT',
+  per_page: 25,
+}).data
+
+puts aalborg_itc.map { |i| i[:name] }
+
+puts ""
+
 # Brands
 puts "Brands"
 response = SynsbasenApi::Brand.all
