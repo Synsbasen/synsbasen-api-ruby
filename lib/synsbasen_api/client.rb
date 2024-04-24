@@ -75,7 +75,9 @@ module SynsbasenApi
       def build_request(path, method:, params: {}, body: {}, expand: [])
         uri = URI.parse(SynsbasenApi.config[:base_url] || DEFAULT_BASE_URL)
         uri.path = path
-        uri.query = URI.encode_www_form(params.merge(expand: expand))
+        query = params
+        query.merge!('expand[]': expand) if expand.any?
+        uri.query = URI.encode_www_form(query)
 
         request = method.new(uri)
         request.body = body.reject { |i| i.nil? || i.empty? }.to_json if method == Net::HTTP::Post
