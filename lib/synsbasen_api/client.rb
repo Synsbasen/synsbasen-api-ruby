@@ -2,9 +2,6 @@
 
 require "synsbasen_api/api_response"
 require "synsbasen_api/error"
-require "active_support/core_ext/hash/keys"
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/enumerable"
 require "net/http"
 require "uri"
 require "json"
@@ -31,7 +28,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       end
 
       # Sends a POST request to Synsbasen API.
@@ -51,7 +48,7 @@ module SynsbasenApi
 
         handle_after_request_callback(response)
 
-        ApiResponse.new(JSON.parse(response.body).deep_symbolize_keys)
+        ApiResponse.new(parse_json(response.body))
       end
 
       private
@@ -81,14 +78,14 @@ module SynsbasenApi
         uri.query = URI.encode_www_form(params.merge(expand: expand))
 
         request = method.new(uri)
-        request.body = body.compact_blank.to_json if method == Net::HTTP::Post
+        request.body = body.reject { |i| i.nil? || i.empty? }.to_json if method == Net::HTTP::Post
         request["Content-Type"] = "application/json"
         request["Authorization"] = "Bearer #{SynsbasenApi.config[:api_key]}"
 
         request
       end
 
-      # Rescues and raises specific errors based on the type of Net::HTTP error encountered.
+      # Raises specific errors based on the type of Net::HTTP error encountered.
       #
       # @param e [Exception] The exception to handle.
       # @raise [ClientError, ServerError] Raised for client or server errors.
@@ -97,7 +94,7 @@ module SynsbasenApi
         when Net::HTTPUnauthorized
           raise ClientError.new(response.message, response.code, {})
         when Net::HTTPClientError, Net::HTTPBadRequest, Net::HTTPForbidden, Net::HTTPNotFound
-          raise ClientError.new(response.message, response.code, JSON.parse(response.body).deep_symbolize_keys)
+          raise ClientError.new(response.message, response.code, parse_json(response.body))
         when Net::HTTPServerError
           raise ServerError.new(response.message, response.code, {})
         else
@@ -113,6 +110,38 @@ module SynsbasenApi
         return unless SynsbasenApi.config[:after_request]
 
         SynsbasenApi.config[:after_request].call(response)
+      end
+
+      # Parses a JSON string into a hash with symbolized keys.
+      #
+      # @param data [String] The JSON string to parse.
+      # @return [Hash] The parsed JSON string as a hash with symbolized keys.
+      def parse_json(data)
+        deep_symbolize_keys(JSON.parse(data))
+      end
+
+      # Recursively converts all keys in a hash to symbols.
+      #
+      # This method is used to convert all keys in the API response to symbols.
+      #
+      # @param hash [Hash] The hash to convert.
+      # @return [Hash] The hash with all keys converted to symbols.
+      # @example
+      #  deep_symbolize_keys({ "key" => "value" }) #=> { key: "value" }
+      #  deep_symbolize_keys({ "key" => { "nested_key" => "value" } }) #=> { key: { nested_key: "value" } }
+      def deep_symbolize_keys(obj)
+        case obj
+        when Hash
+          obj.each_with_object({}) do |(key, value), result|
+            new_key = key.is_a?(String) ? key.to_sym : key
+            new_value = deep_symbolize_keys(value)
+            result[new_key] = new_value
+          end
+        when Array
+          obj.map { |value| deep_symbolize_keys(value) }
+        else
+          obj
+        end
       end
     end
   end
