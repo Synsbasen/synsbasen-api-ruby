@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
   }
 
   spec.add_runtime_dependency "activesupport", "~> 7"
-  spec.add_runtime_dependency "faraday", "~> 2.7"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{lib}/**/*", ]
