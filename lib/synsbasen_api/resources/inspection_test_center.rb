@@ -12,6 +12,21 @@ module SynsbasenApi
       def all
         get("/v1/inspection_test_centers")
       end
+
+      # Performs a search for inspection test centers based on the provided criteria.
+      #
+      # @param args [Hash] Additional parameters to customize the search.
+      # @option args [String] :method The search method. Default is 'SELECT'.
+      # @return [ApiResponse] An instance of `ApiResponse` containing search results.
+      def search(args = {}, expand: [])
+        post(
+          "/v1/inspection_test_centers/search",
+          body: {
+            method: 'SELECT',
+          }.merge(args),
+          expand: expand
+        )
+      end
     end
   end
 end
