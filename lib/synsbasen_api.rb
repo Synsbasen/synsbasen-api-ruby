@@ -9,6 +9,7 @@ require "synsbasen_api/resources/test_center"
 require "synsbasen_api/resources/vehicle"
 require "synsbasen_api/resources/variant"
 require "synsbasen_api/resources/version"
+require "ostruct"
 
 # The `SynsbasenApi` module provides a configuration mechanism and requires various
 # classes and modules related to interacting with the Synsbasen API.

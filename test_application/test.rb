@@ -6,6 +6,7 @@ Dotenv.load('./.env')
 
 SynsbasenApi.configure do |config|
   config.api_key = ENV.fetch("API_KEY")
+  config.after_request = ->(response) { puts response.class }
 end
 
 # Vehicles
@@ -14,11 +15,17 @@ begin
   response = SynsbasenApi::Vehicle.find_by_registration("AS67902", expand: %i[equipment])
   puts response.data[:registration]
   puts response.data[:equipment]
-rescue => e
+rescue SynsbasenApi::ClientError => e
   binding.irb
 end
 
-response = SynsbasenApi::Vehicle.search({ registration: "AS679" }, expand: %i[equipment])
+args = {
+  query: {
+    registration_start: "AS679",
+  },
+  sorts: 'registration ASC',
+}
+response = SynsbasenApi::Vehicle.search(args, expand: %i[equipment])
 puts response.data.map { |v| v[:registration] }
 puts response.data.map { |v| v[:equipment] }
 
