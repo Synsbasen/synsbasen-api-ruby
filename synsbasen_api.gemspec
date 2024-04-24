@@ -20,8 +20,6 @@ Gem::Specification.new do |spec|
     "source_code_uri" => "https://github.com/synsbasen/synsbasen-api-ruby",
   }
 
-  spec.add_runtime_dependency "faraday", "~> 2.7"
-
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{lib}/**/*", ]
   end
