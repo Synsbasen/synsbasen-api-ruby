@@ -5,6 +5,7 @@ module SynsbasenApi
   # endpoints in the Synsbasen API.
   class Version < Resource
     extend Findable
+    extend Searchable
 
     class << self
       # Retrieves information about all versions associated with a given variant.

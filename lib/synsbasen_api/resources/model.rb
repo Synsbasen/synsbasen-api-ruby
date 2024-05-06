@@ -5,6 +5,7 @@ module SynsbasenApi
   # endpoints in the Synsbasen API.
   class Model < Resource
     extend Findable
+    extend Searchable
 
     class << self
       # Retrieves information about all models associated with a given brand.
