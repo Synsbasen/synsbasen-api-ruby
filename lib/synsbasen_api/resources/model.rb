@@ -4,16 +4,9 @@ module SynsbasenApi
   # The `Model` class provides methods for interacting with model-related
   # endpoints in the Synsbasen API.
   class Model < Resource
-    class << self
-      # Retrieves information about a specific model based on its ID.
-      #
-      # @param id [String] The unique identifier of the model.
-      # @return [ApiResponse] An instance of `ApiResponse` containing details
-      #   of the specified model.
-      def find(id, expand: [])
-        get("/v1/#{resource_name}/#{id}", expand: expand)
-      end
+    extend Findable
 
+    class << self
       # Retrieves information about all models associated with a given brand.
       #
       # @param brand_id [String] The unique identifier of the brand.

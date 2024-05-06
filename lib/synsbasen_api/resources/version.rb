@@ -4,16 +4,9 @@ module SynsbasenApi
   # The `Version` class provides methods for interacting with version-related
   # endpoints in the Synsbasen API.
   class Version < Resource
-    class << self
-      # Retrieves information about a specific version based on its ID.
-      #
-      # @param id [String] The unique identifier of the version.
-      # @return [ApiResponse] An instance of `ApiResponse` containing details
-      #   of the specified version.
-      def find(id, expand: [])
-        get("/v1/#{resource_name}/#{id}", expand: expand)
-      end
+    extend Findable
 
+    class << self
       # Retrieves information about all versions associated with a given variant.
       #
       # @param variant_id [String] The unique identifier of the variant.

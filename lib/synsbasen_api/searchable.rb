@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module SynsbasenApi
+  # Provides a search method for resources.
+  #
+  # This module is intended to be extended in classes that represent resources.
   module Searchable
     # Performs a search for resources based on the provided criteria.
     #

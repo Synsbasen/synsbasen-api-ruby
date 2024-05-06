@@ -4,16 +4,9 @@ module SynsbasenApi
   # The `Variant` class provides methods for interacting with variant-related
   # endpoints in the Synsbasen API.
   class Variant < Resource
-    class << self
-      # Retrieves information about a specific variant based on its ID.
-      #
-      # @param id [String] The unique identifier of the variant.
-      # @return [ApiResponse] An instance of `ApiResponse` containing details
-      #   of the specified variant.
-      def find(id, expand: [])
-        get("/v1/#{resource_name}/#{id}", expand: expand)
-      end
+    extend Findable
 
+    class << self
       # Retrieves information about all variants associated with a given model.
       #
       # @param model_id [String] The unique identifier of the model.
