@@ -13,12 +13,19 @@ end
 puts "Vehicles"
 begin
   response = SynsbasenApi::Vehicle.find_by_registration("AS67902", expand: %i[equipment engine])
+  puts response.data[:id]
   puts response.data[:registration]
   puts response.data[:equipment]
   puts response.data[:engine]
 rescue SynsbasenApi::ClientError => e
   binding.irb
 end
+
+response = SynsbasenApi::Vehicle.find(9000000000970539, expand: %i[equipment engine])
+puts response.data[:id]
+puts response.data[:registration]
+puts response.data[:equipment]
+puts response.data[:engine]
 
 args = {
   query: {
