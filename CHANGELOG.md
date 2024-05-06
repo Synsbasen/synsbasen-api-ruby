@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.8
+* 3 minor enhancements:
+  * LeasingPeriod resource
+  * Support for search in Brand, Model, Variant, and Version
+  * Normalize search
+
 ## 1.0.7
 * 3 minor enhancements:
   * Remove Faraday dependency and use Net::HTTP instead
