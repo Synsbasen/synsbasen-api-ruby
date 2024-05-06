@@ -20,7 +20,7 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of all versions associated with the specified variant.
       def all(variant_id, expand: [])
-        get("/v1/#{resource_name}/#{variant_id}/versions", expand: expand)
+        get("/v1/variants/#{variant_id}/#{resource_name}", expand: expand)
       end
 
       private
