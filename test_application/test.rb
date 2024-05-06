@@ -87,3 +87,17 @@ puts ""
 puts "Brands"
 response = SynsbasenApi::Brand.all
 puts response.data.first(10).map { |i| i[:name] }
+
+# Leasing periods
+puts "Leasing periods"
+args = {
+  query: {
+    vehicle_id: 1004501200018020,
+  },
+  method: 'SELECT',
+  per_page: 10,
+  page: 1,
+}
+
+response = SynsbasenApi::LeasingPeriod.search(args)
+puts response
