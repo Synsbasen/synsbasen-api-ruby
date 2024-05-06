@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "synsbasen_api/client"
+require "synsbasen_api/resource"
 require "synsbasen_api/resources/brand"
 require "synsbasen_api/resources/inspection"
 require "synsbasen_api/resources/inspection_test_center"

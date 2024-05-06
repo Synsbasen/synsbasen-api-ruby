@@ -3,7 +3,7 @@
 module SynsbasenApi
   # The `Brand` class provides methods for interacting with brand-related
   # endpoints in the Synsbasen API.
-  class Brand < Client
+  class Brand < Resource
     class << self
       # Retrieves information about a specific brand based on its ID.
       #
@@ -11,7 +11,7 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of the specified brand.
       def find(id, expand: [])
-        get("/v1/brands/#{id}", expand: expand)
+        get("/v1/#{resource_name}/#{id}", expand: expand)
       end
 
       # Retrieves information about all brands.
@@ -19,7 +19,13 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of all brands.
       def all(expand: [])
-        get("/v1/brands", expand: expand)
+        get("/v1/#{resource_name}", expand: expand)
+      end
+
+      private
+
+      def resource_name
+        "brands"
       end
     end
   end

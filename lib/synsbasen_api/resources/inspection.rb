@@ -3,7 +3,7 @@
 module SynsbasenApi
   # The `Inspection` class provides methods for interacting with inspection-related
   # endpoints in the Synsbasen API.
-  class Inspection < Client
+  class Inspection < Resource
     class << self
       # Performs a search for inspections based on the provided criteria.
       #
@@ -12,12 +12,18 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing search results.
       def search(args = {}, expand: [])
         post(
-          "/v1/inspections/search",
+          "/v1/#{resource_name}/search",
           body: {
             method: 'SELECT',
           }.merge(args),
           expand: expand
         )
+      end
+
+      private
+
+      def resource_name
+        "inspections"
       end
     end
   end

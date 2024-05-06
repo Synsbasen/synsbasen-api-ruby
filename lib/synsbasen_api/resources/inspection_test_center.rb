@@ -3,14 +3,14 @@
 module SynsbasenApi
   # The `InspectionTestCenter` class provides methods for interacting with inspection test center-related
   # endpoints in the Synsbasen API.
-  class InspectionTestCenter < Client
+  class InspectionTestCenter < Resource
     class << self
       # Retrieves information about all inspection test centers.
       #
       # @return [ApiResponse] An instance of `ApiResponse` containing details
       #   of all inspection test centers.
       def all
-        get("/v1/inspection_test_centers")
+        get("/v1/#{resource_name}")
       end
 
       # Performs a search for inspection test centers based on the provided criteria.
@@ -20,12 +20,18 @@ module SynsbasenApi
       # @return [ApiResponse] An instance of `ApiResponse` containing search results.
       def search(args = {}, expand: [])
         post(
-          "/v1/inspection_test_centers/search",
+          "/v1/#{resource_name}/search",
           body: {
             method: 'SELECT',
           }.merge(args),
           expand: expand
         )
+      end
+
+      private
+
+      def resource_name
+        "inspection_test_centers"
       end
     end
   end
