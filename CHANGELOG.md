@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9
+* 1 minor enhancement:
+  * page attribute reader in ApiResponse
+
 ## 1.0.8
 * 3 minor enhancements:
   * LeasingPeriod resource

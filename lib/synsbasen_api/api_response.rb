@@ -12,6 +12,9 @@ module SynsbasenApi
     # @return [Boolean] Indicates whether there is more data available in the response.
     attr_reader :has_more
 
+    # @return [Numeric] The current page number.
+    attr_reader :page
+
     # @return [Numeric] The total number of pages available.
     attr_reader :total_pages
 
@@ -30,7 +33,7 @@ module SynsbasenApi
       @data = response[:data]
       @cost = response[:cost]
 
-      %i[has_more total_pages total_count].each do |key|
+      %i[has_more page total_pages total_count].each do |key|
         instance_variable_set("@#{key}", response[key]) if response.key?(key)
       end
     end
