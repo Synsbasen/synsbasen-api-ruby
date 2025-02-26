@@ -13,6 +13,24 @@ module SynsbasenApi
         get("/v1/#{resource_name}")
       end
 
+      # Creates a new watched vehicle.
+      #
+      # @param vehicle_id [Integer] The ID of the vehicle to be watched.
+      # @return [ApiResponse] An instance of `ApiResponse` containing details
+      #   of the newly created watched vehicle.
+      def subscribe(vehicle_id)
+        post("/v1/#{resource_name}", body: { vehicle_id: vehicle_id })
+      end
+
+      # Deletes a watched vehicle.
+      #
+      # @param vehicle_id [Integer] The ID of the vehicle to be unwatched.
+      # @return [ApiResponse] An instance of `ApiResponse` indicating the success
+      #   of the unwatch operation.
+      def unsubscribe(vehicle_id)
+        delete("/v1/#{resource_name}/#{vehicle_id}")
+      end
+
       private
 
       def resource_name

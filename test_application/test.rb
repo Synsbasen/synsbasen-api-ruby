@@ -99,3 +99,25 @@ args = {
 }
 response = SynsbasenApi::ErrorCode.search(args)
 puts response.data
+
+puts ""
+
+# Watched vehicles
+puts "Creating watched vehicle"
+vehicle_id = 5134005200710170
+begin
+  response = SynsbasenApi::WatchedVehicle.subscribe(vehicle_id)
+  puts response.data
+rescue => e
+  puts e.data
+end
+
+sleep(2)
+
+puts "Deleting watched vehicle"
+begin
+  response = SynsbasenApi::WatchedVehicle.unsubscribe(vehicle_id)
+  puts response
+rescue => e
+  puts e.data
+end
