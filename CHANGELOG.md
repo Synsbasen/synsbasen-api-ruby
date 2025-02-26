@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.10
+* 2 minor enhancements:
+  * Add support for ErrorCode
+  * Add support for WatchedVehicle
+
 ## 1.0.9
 * 1 minor enhancement:
   * page attribute reader in ApiResponse
