@@ -51,6 +51,25 @@ module SynsbasenApi
         ApiResponse.new(parse_json(response.body))
       end
 
+      # Sends a DELETE request to Synsbasen API.
+      #
+      # @param path [String] The API endpoint path.
+      # @param params [Hash] Query parameters for the request.
+      # @param body [Hash] Request body.
+      # @return [ApiResponse] The API response.
+      # @raise [ClientError, ServerError] Raised for client or server errors.
+      def delete(path, params = {}, body = {})
+        request = build_request(path, method: Net::HTTP::Delete, params: params, body: body)
+
+        response = connection.request(request)
+
+        raise_errors(response)
+
+        handle_after_request_callback(response)
+
+        ApiResponse.new(parse_json(response.body))
+      end
+
       private
 
       # Establishes and returns a connection to Synsbasen API.
@@ -119,6 +138,8 @@ module SynsbasenApi
       # @param data [String] The JSON string to parse.
       # @return [Hash] The parsed JSON string as a hash with symbolized keys.
       def parse_json(data)
+        data ||= "{}"
+
         deep_symbolize_keys(JSON.parse(data))
       end
 
