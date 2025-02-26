@@ -90,6 +90,7 @@ puts ""
 puts "Error codes"
 args = {
   query: {
+    inspection_vehicle_model_id_eq: 10045053,
     inspection_variant_eq: "Første syn",
     inspection_kind_eq: "Periodisk syn",
   },
