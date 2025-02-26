@@ -112,6 +112,10 @@ rescue => e
   puts e.data
 end
 
+puts "Listing watched vehicles"
+response = SynsbasenApi::WatchedVehicle.all
+puts response.data
+
 sleep(2)
 
 puts "Deleting watched vehicle"
