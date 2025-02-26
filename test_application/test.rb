@@ -63,36 +63,18 @@ puts response.data.map { |i| i[:date] + " " + i[:time] }
 
 puts ""
 
-# Inspection test_application centers
-puts "Inspection test_application centers"
-response = SynsbasenApi::InspectionTestCenter.all
-puts response.data.first(10).map { |i| i[:name] }
-
-puts ""
-
-puts "Inspection test centers in Aalborg"
-aalborg_itc = SynsbasenApi::InspectionTestCenter.search({
-  query: {
-    zip_in: [9000, 9200, 9220],
-  },
-  method: 'SELECT',
-  per_page: 25,
-}).data
-
-puts aalborg_itc.map { |i| i[:name] }
-
-puts ""
-
 # Brands
 puts "Brands"
 response = SynsbasenApi::Brand.all
 puts response.data.first(10).map { |i| i[:name] }
 
+puts ""
+
 # Leasing periods
 puts "Leasing periods"
 args = {
   query: {
-    vehicle_id: 1004501200018020,
+    vehicle_id_eq: 1004501200018020,
   },
   method: 'SELECT',
   per_page: 10,
@@ -100,4 +82,20 @@ args = {
 }
 
 response = SynsbasenApi::LeasingPeriod.search(args)
-puts response
+puts response.data
+
+puts ""
+
+# Error codes
+puts "Error codes"
+args = {
+  query: {
+    inspection_vehicle_model_id_eq: 10045053,
+    inspection_variant_eq: "Første syn",
+    inspection_kind_eq: "Periodisk syn",
+  },
+  method: 'PERCENTAGE',
+  group_by: 'category'
+}
+response = SynsbasenApi::ErrorCode.search(args)
+puts response.data
