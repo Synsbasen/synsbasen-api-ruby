@@ -4,6 +4,7 @@ module SynsbasenApi
   # The `Inspection` class provides methods for interacting with inspection-related
   # endpoints in the Synsbasen API.
   class Inspection < Resource
+    extend Findable
     extend Searchable
 
     class << self
