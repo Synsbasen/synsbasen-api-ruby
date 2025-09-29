@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.12
+* 1 minor enhancement:
+  * Custom error class for already watched vehicle
+
+## 1.0.11
+* 1 minor enhancement:
+  * Add Findable module to Inspection resource
+
 ## 1.0.10
 * 2 minor enhancements:
   * Add support for ErrorCode
