@@ -29,4 +29,7 @@ module SynsbasenApi
 
   # The `ServerError` class represents errors that occur on the server side (5xx status codes).
   class ServerError < Error; end
+
+  # The `VehicleAlreadySubscribedError` class represents errors that occur when a vehicle is already being watched.
+  class VehicleAlreadySubscribedError < ClientError; end
 end

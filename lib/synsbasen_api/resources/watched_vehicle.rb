@@ -20,6 +20,9 @@ module SynsbasenApi
       #   of the newly created watched vehicle.
       def subscribe(vehicle_id)
         post("/v1/#{resource_name}", body: { vehicle_id: vehicle_id })
+      rescue SynsbasenApi::ClientError => e
+        raise VehicleAlreadySubscribedError.new(e.message, e.status, e.data) if e.status == "409"
+        raise e
       end
 
       # Deletes a watched vehicle.

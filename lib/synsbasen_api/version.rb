@@ -2,5 +2,5 @@
 
 module SynsbasenApi
   # The `VERSION` module specifies the version of the SynsbasenApi gem.
-  VERSION = "1.0.11"
+  VERSION = "1.0.12"
 end
