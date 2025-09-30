@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    synsbasen_api (1.0.9)
+    synsbasen_api (1.0.12)
 
 GEM
   remote: https://rubygems.org/

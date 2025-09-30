@@ -109,17 +109,25 @@ module SynsbasenApi
       # Raises specific errors based on the type of Net::HTTP error encountered.
       #
       # @param e [Exception] The exception to handle.
-      # @raise [ClientError, ServerError] Raised for client or server errors.
+      # @raise [ClientError, ServerError, BadRequestError, UnauthorizedError, ForbiddenError, NotFoundError, ConflictError, UnprocessableEntityError, InternalServerError] Raised for errors.
       def raise_errors(response)
+        return unless response.is_a?(Net::HTTPClientError) || response.is_a?(Net::HTTPServerError)
+
         case response
         when Net::HTTPUnauthorized
           raise ClientError.new(response.message, response.code, {})
-        when Net::HTTPClientError, Net::HTTPBadRequest, Net::HTTPForbidden, Net::HTTPNotFound
-          raise ClientError.new(response.message, response.code, parse_json(response.body))
-        when Net::HTTPServerError
-          raise ServerError.new(response.message, response.code, {})
         else
-          response
+          error_class_name = "#{response.message.split.map(&:capitalize).join}Error"
+
+          error_class =
+            if SynsbasenApi.const_defined?(error_class_name, false) &&
+               SynsbasenApi.const_get(error_class_name).is_a?(Class)
+              SynsbasenApi.const_get(error_class_name)
+            else
+              response.is_a?(Net::HTTPClientError) ? ClientError : ServerError
+            end
+
+          raise error_class.new(response.message, response.code, parse_json(response.body))
         end
       end
 
