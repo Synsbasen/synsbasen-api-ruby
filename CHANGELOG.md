@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.13
+* 1 minor enhancement:
+  * Add more custom error classes for regular HTTP errors
+
 ## 1.0.12
 * 1 minor enhancement:
   * Custom error class for already watched vehicle
