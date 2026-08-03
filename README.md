@@ -40,6 +40,23 @@ SynsbasenApi.configure do |config|
 end
 ```
 
+### Errors
+HTTP errors are raised as subclasses of `SynsbasenApi::Error`. A request that
+times out before receiving a response raises `SynsbasenApi::RequestTimeoutError`.
+An HTTP 504 response raises `SynsbasenApi::GatewayTimeoutError`, which is also a
+`RequestTimeoutError`; this lets consumers handle both transport and gateway
+timeouts together or distinguish HTTP 504 responses specifically.
+
+```ruby
+begin
+  SynsbasenApi::Client.get("/v1/vehicles")
+rescue SynsbasenApi::GatewayTimeoutError
+  # The API gateway timed out.
+rescue SynsbasenApi::RequestTimeoutError
+  # The request timed out before a response was received.
+end
+```
+
 ## Contributing
 Feel free to submit a pull request.
 
