@@ -30,6 +30,13 @@ module SynsbasenApi
   # The `ServerError` class represents errors that occur on the server side (5xx status codes).
   class ServerError < Error; end
 
+  # The `RequestTimeoutError` class represents requests that did not complete within the
+  # configured timeout, including HTTP 408 responses and transport-level timeouts.
+  class RequestTimeoutError < Error; end
+
+  # The `GatewayTimeoutError` class represents an HTTP 504 response from the API.
+  class GatewayTimeoutError < RequestTimeoutError; end
+
   %w[BadRequestError UnauthorizedError ForbiddenError NotFoundError
      ConflictError UnprocessableEntityError].each do |error|
     klass = Class.new(ClientError)

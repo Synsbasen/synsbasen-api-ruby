@@ -22,7 +22,7 @@ module SynsbasenApi
       def get(path, params: {}, expand: [])
         request = build_request(path, method: Net::HTTP::Get, params: params, expand: expand)
 
-        response = connection.request(request)
+        response = perform_request(request)
 
         raise_errors(response)
 
@@ -42,7 +42,7 @@ module SynsbasenApi
       def post(path, params: {}, body: {}, expand: [])
         request = build_request(path, method: Net::HTTP::Post, params: params, body: body, expand: expand)
 
-        response = connection.request(request)
+        response = perform_request(request)
 
         raise_errors(response)
 
@@ -61,7 +61,7 @@ module SynsbasenApi
       def delete(path, params = {}, body = {})
         request = build_request(path, method: Net::HTTP::Delete, params: params, body: body)
 
-        response = connection.request(request)
+        response = perform_request(request)
 
         raise_errors(response)
 
@@ -106,29 +106,37 @@ module SynsbasenApi
         request
       end
 
+      # Sends a request and translates transport-level timeouts into a public gem error.
+      #
+      # @param request [Net::HTTPRequest] The request to send.
+      # @return [Net::HTTPResponse] The response returned by the API.
+      # @raise [RequestTimeoutError] Raised when the request times out before a response is received.
+      def perform_request(request)
+        connection.request(request)
+      rescue Net::OpenTimeout, Net::ReadTimeout, Net::WriteTimeout => e
+        raise RequestTimeoutError.new(e.message)
+      end
+
       # Raises specific errors based on the type of Net::HTTP error encountered.
       #
-      # @param e [Exception] The exception to handle.
-      # @raise [ClientError, ServerError, BadRequestError, UnauthorizedError, ForbiddenError, NotFoundError, ConflictError, UnprocessableEntityError, InternalServerError] Raised for errors.
+      # @param response [Net::HTTPResponse] The response to handle.
+      # @raise [ClientError, ServerError, BadRequestError, UnauthorizedError, ForbiddenError, NotFoundError, ConflictError, UnprocessableEntityError, RequestTimeoutError, GatewayTimeoutError, InternalServerError] Raised for errors.
       def raise_errors(response)
         return unless response.is_a?(Net::HTTPClientError) || response.is_a?(Net::HTTPServerError)
 
-        case response
-        when Net::HTTPUnauthorized
-          raise ClientError.new(response.message, response.code, {})
-        else
-          error_class_name = "#{response.message.split.map(&:capitalize).join}Error"
+        error_class = {
+          "400" => BadRequestError,
+          "401" => UnauthorizedError,
+          "403" => ForbiddenError,
+          "404" => NotFoundError,
+          "408" => RequestTimeoutError,
+          "409" => ConflictError,
+          "422" => UnprocessableEntityError,
+          "500" => InternalServerError,
+          "504" => GatewayTimeoutError
+        }[response.code] || (response.is_a?(Net::HTTPClientError) ? ClientError : ServerError)
 
-          error_class =
-            if SynsbasenApi.const_defined?(error_class_name, false) &&
-               SynsbasenApi.const_get(error_class_name).is_a?(Class)
-              SynsbasenApi.const_get(error_class_name)
-            else
-              response.is_a?(Net::HTTPClientError) ? ClientError : ServerError
-            end
-
-          raise error_class.new(response.message, response.code, parse_json(response.body))
-        end
+        raise error_class.new(response.message, response.code, parse_json(response.body))
       end
 
       # Calls the after_request callback if configured in the SynsbasenApi.
@@ -146,7 +154,7 @@ module SynsbasenApi
       # @param data [String] The JSON string to parse.
       # @return [Hash] The parsed JSON string as a hash with symbolized keys.
       def parse_json(data)
-        data ||= "{}"
+        return {} if data.nil? || data.empty?
 
         deep_symbolize_keys(JSON.parse(data))
       end

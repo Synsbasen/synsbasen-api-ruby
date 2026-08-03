@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.14
+* 1 minor enhancement:
+  * Add typed errors for HTTP and transport-level request timeouts
+
 ## 1.0.13
 * 1 minor enhancement:
   * Add more custom error classes for regular HTTP errors
