@@ -45,7 +45,16 @@ HTTP errors are raised as subclasses of `SynsbasenApi::Error`. A request that
 times out before receiving a response raises `SynsbasenApi::RequestTimeoutError`.
 An HTTP 504 response raises `SynsbasenApi::GatewayTimeoutError`, which is also a
 `RequestTimeoutError`; this lets consumers handle both transport and gateway
-timeouts together or distinguish HTTP 504 responses specifically.
+timeouts together or distinguish HTTP 504 responses specifically. HTTP 408 responses
+also raise `RequestTimeoutError`.
+
+HTTP errors keep their typed exception and status even when a proxy returns HTML,
+plain text, or malformed JSON. In those cases, `error.data` is an empty hash. Invalid
+JSON in a successful response still raises `JSON::ParserError`.
+
+The gem makes one attempt per request and does not retry or report errors to Sentry.
+Consumers decide whether and when to retry, including whether a write can safely be
+repeated after a timeout.
 
 ```ruby
 begin

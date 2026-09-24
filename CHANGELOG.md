@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.15
+* Preserve typed HTTP errors when the response body is HTML, plain text, or invalid JSON.
+* Leave all request retries to the consuming application, including transport retries.
+
 ## 1.0.14
 * 1 minor enhancement:
   * Add typed errors for HTTP and transport-level request timeouts
