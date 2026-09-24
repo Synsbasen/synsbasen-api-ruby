@@ -79,6 +79,7 @@ module SynsbasenApi
         uri = URI.parse(SynsbasenApi.config[:base_url] || DEFAULT_BASE_URL)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = uri.scheme == "https"
+        http.max_retries = 0 # Consumers own the retry policy.
         http
       end
 
@@ -136,7 +137,14 @@ module SynsbasenApi
           "504" => GatewayTimeoutError
         }[response.code] || (response.is_a?(Net::HTTPClientError) ? ClientError : ServerError)
 
-        raise error_class.new(response.message, response.code, parse_json(response.body))
+        raise error_class.new(response.message, response.code, parse_error_body(response.body))
+      end
+
+      # An HTML/text error page must not hide the HTTP error behind a JSON parser error.
+      def parse_error_body(body)
+        parse_json(body)
+      rescue JSON::ParserError
+        {}
       end
 
       # Calls the after_request callback if configured in the SynsbasenApi.
